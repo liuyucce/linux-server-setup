@@ -1,0 +1,14 @@
+configure ssh to use no password
+install sudo
+add yuchen to sudo user
+add public key to authorized_keys for user yuchen
+copy through .vimrc for root and yuchen
+configure static ip address
+install docker
+copy through docker containers script
+install database percona
+install node
+
+reboot
+
+sudo systemctl restart networking

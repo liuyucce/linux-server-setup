@@ -1,0 +1,56 @@
+---
+  - name: Remove old docker packages
+    become: yes
+    become_method: su
+    apt:
+      name: '{{ removedep }}'
+      state: absent
+  - name: Update the apt package index
+    become: yes
+    become_method: su
+    apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+      force_apt_get: yes
+  - name: Install packages for apt add repository over HTTPS
+    become: yes
+    become_method: su
+    apt:
+      name: "{{ packagesdep }}"
+      force_apt_get: yes
+      state: latest
+      update_cache: yes
+  - name: Add apt signing key from official docker repo
+    become: yes
+    become_method: su
+    apt_key:
+      url: https://download.docker.com/linux/debian/gpg
+      state: present
+  - name: add docker official repository for Debian Buster
+    become: yes
+    become_method: su
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/debian buster stable
+      state: present
+  - name: Index new repo into the cache
+    become: yes
+    become_method: su
+    apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+      force_apt_get: yes
+  - name: Actually install docker
+    become: yes
+    become_method: su
+    apt:
+      name: "{{ dockerengine }}"
+      state: latest
+  - name: Add docker to user groups
+    become: yes
+    become_method: su
+    user:
+      name: '{{ user }}'
+      group: docker
+      append: yes

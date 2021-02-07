@@ -1,0 +1,21 @@
+---
+# vars file for docker
+user: yuchen
+removedep:
+  - docker
+  - docker-engine
+  - docker.io
+  - containerd
+  - runc
+packagesdep:
+  - git
+  - apt-transport-https
+  - ca-certificates
+  - wget
+  - software-properties-common
+  - gnupg-agent
+  - curl
+dockerengine:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
