@@ -3,17 +3,21 @@
 user: yuchen
 removedep:
   - docker
+  - docker-client
+  - docker-client-latest
+  - docker-common
+  - docker-latest
+  - docker-latest-logrotate
+  - docker-logrotate
   - docker-engine
   - docker.io
   - containerd
   - runc
 packagesdep:
   - git
-  - apt-transport-https
   - ca-certificates
   - wget
-  - software-properties-common
-  - gnupg-agent
+  - gnupg2
   - curl
 dockerengine:
   - docker-ce

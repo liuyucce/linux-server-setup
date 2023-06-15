@@ -1,12 +1,12 @@
 [vm_servers]
-dev_server
+#dev_server
 staging_server
 
 [vm_servers:vars]
 ansible_python_interpreter=/usr/bin/python3
 
-[aws_servers]
-crawlers_server
+#[aws_servers]
+#production_server
 
-[aws_servers:vars]
-ansible_python_interpreter=/usr/bin/python3
+#[aws_servers:vars]
+#ansible_python_interpreter=/usr/bin/python3

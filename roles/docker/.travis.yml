@@ -1,15 +1,15 @@
 ---
 language: python
-python: "2.7"
+python: "3.9"
 
 # Use the new container infrastructure
 sudo: false
 
 # Install ansible
 addons:
-  apt:
+  yum:
     packages:
-    - python-pip
+    - python-pip3
 
 install:
   # Install ansible

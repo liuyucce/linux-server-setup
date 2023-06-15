@@ -1,0 +1,10 @@
+Add host variable files
+host_vars/dev_server.yml
+host_vars/staging_server.yml
+host_vars/production_server.yml
+
+Create ansible_become_password
+ansible-vault encrypt_string --vault-password-file .vault_pass '<password>' --name 'ansible_become_password'
+
+Run
+ansible-playbook deploy.yml -i inventory --vault-password-file .vault_pass
