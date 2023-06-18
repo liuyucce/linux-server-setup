@@ -1,12 +1,12 @@
 ---
   - name: Install basic tools
-    become: yes
+    become: true
     become_method: su
     yum:
       name: "{{ tools }}"
       state: latest
   - name: Add wheel to user groups
-    become: yes
+    become: true
     user:
       name: '{{ user }}'
       groups: wheel

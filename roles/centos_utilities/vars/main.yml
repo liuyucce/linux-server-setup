@@ -3,3 +3,10 @@ user: yuchen
 tools:
   - sudo
   - python3-pip
+  - gcc
+  - gcc-c++
+  - kernel-devel
+  - python3-devel
+  - libxslt-devel
+  - libffi-devel
+  - openssl-devel
