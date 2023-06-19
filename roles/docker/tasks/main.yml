@@ -9,41 +9,54 @@
       - yum-utils
       - device-mapper-persistent-data
       - lvm2
+
   - name: Remove old docker packages
     become: true
     yum:
       name: "{{ removedep }}"
       state: absent
+
   - name: Add Docker repo
     become: true
     get_url:
         url: https://download.docker.com/linux/centos/docker-ce.repo
         dest: /etc/yum.repos.d/docer-ce.repo
+
   - name: Install packages for yum
     become: true
     yum:
       name: "{{ packagesdep }}"
       state: latest
+
   - name: Actually install docker
     become: true
     yum:
       name: "{{ dockerengine }}"
       state: latest
+
   - name: Add docker to user groups
     become: true
     user:
       name: "{{ ansible_user }}"
       groups: docker
       append: true
+
   - name: Install docker-compose from official github repo
     become: true
     get_url:
       url : https://github.com/docker/compose/releases/download/v2.18.1/docker-compose-linux-x86_64
       dest: /usr/local/bin/docker-compose
       mode: 'a+x'
+
   - name: " Starting and Enabling Docker service"
     become: true
     service:
       name: docker
       state: started
       enabled: true
+
+  - name: Make sure python docker modules is present
+    become: true
+    pip:
+      name: docker,docker-compose,PyYAML
+      state: present

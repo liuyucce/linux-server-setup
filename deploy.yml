@@ -4,6 +4,7 @@
   vars_files:
     - vars/main.yml
   roles:
-    # - centos_utilities
-    # - docker
-    - percona
+    - centos_utilities
+    - docker
+    # - percona
+    - mysql

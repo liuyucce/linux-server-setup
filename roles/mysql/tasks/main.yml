@@ -1,0 +1,44 @@
+---
+  - name: Creates volume directory
+    file:
+      path: "{{ item }}"
+      state: directory
+    with_items:
+    - /home/{{ user }}/volumes/mysql/data
+
+  - name: Pull git project
+    git:
+      repo: https://github.com/liuyucce/phpmyadmin.git
+      version: master
+      dest: /home/{{ ansible_user }}/apps/phpmyadmin
+    become: false
+
+  - name: Tear down existing services
+    community.docker.docker_compose:
+      project_src: /home/{{ ansible_user }}/apps/phpmyadmin
+      state: absent
+
+  - name: Create and start services
+    community.docker.docker_compose:
+      project_src: /home/{{ ansible_user }}/apps/phpmyadmin
+    register: output
+
+  - ansible.builtin.debug:
+      var: output
+
+  - name: Run `docker-compose up` again
+    community.docker.docker_compose:
+      project_src: /home/{{ ansible_user }}/apps/phpmyadmin
+      build: no
+    register: output
+
+  - ansible.builtin.debug:
+      var: output
+
+  - ansible.builtin.assert:
+      that: "not output.changed "
+      
+  - ansible.builtin.assert:
+      that:
+        - "output.services.db.mysql.state.running"
+        - "output.services.phpmyadmin.phpmyadmin.state.running"
